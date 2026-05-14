@@ -1,0 +1,110 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class PlayerData {
+private:
+    bool unlimitedMode;
+
+public:
+    long long coins;
+    long long diamonds;
+    long long gems;
+    long long keys;
+    long long tickets;
+    long long boosters;
+    int lives;
+    int level;
+
+    PlayerData() {
+        unlimitedMode = true;
+
+        coins = 999999999;
+        diamonds = 999999999;
+        gems = 999999999;
+        keys = 999999999;
+        tickets = 999999999;
+        boosters = 999999999;
+
+        lives = 9999;
+        level = 999;
+    }
+
+    bool isUnlimited() {
+        return unlimitedMode;
+    }
+
+    void enableUnlimited() {
+        unlimitedMode = true;
+    }
+
+    void disableUnlimited() {
+        unlimitedMode = false;
+    }
+
+    bool spendCoins(long long amount) {
+        if (unlimitedMode)
+            return true;
+
+        if (coins >= amount) {
+            coins -= amount;
+            return true;
+        }
+
+        return false;
+    }
+
+    bool spendDiamonds(long long amount) {
+        if (unlimitedMode)
+            return true;
+
+        if (diamonds >= amount) {
+            diamonds -= amount;
+            return true;
+        }
+
+        return false;
+    }
+
+    void addCoins(long long amount) {
+        if (!unlimitedMode)
+            coins += amount;
+    }
+
+    void addDiamonds(long long amount) {
+        if (!unlimitedMode)
+            diamonds += amount;
+    }
+
+    void printData() {
+
+        cout << "\n===== PLAYER DATA =====\n";
+
+        cout << "Coins      : " << coins << endl;
+        cout << "Diamonds   : " << diamonds << endl;
+        cout << "Gems       : " << gems << endl;
+        cout << "Keys       : " << keys << endl;
+        cout << "Tickets    : " << tickets << endl;
+        cout << "Boosters   : " << boosters << endl;
+        cout << "Lives      : " << lives << endl;
+        cout << "Level      : " << level << endl;
+
+        cout << "Unlimited  : "
+             << (unlimitedMode ? "ON" : "OFF")
+             << endl;
+    }
+};
+
+int main() {
+
+    PlayerData player;
+
+    // Example shop purchases
+    player.spendCoins(50000);
+    player.spendDiamonds(2000);
+
+    player.printData();
+
+    return 0;
+}
